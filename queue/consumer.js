@@ -1,7 +1,7 @@
 'use strict';
 const amqplib = require('amqplib');
 require('dotenv').config();
-const url = process.env.URL_CLOUD;
+const url = process.env.URL_LOCAL;
 
 async function receiveQueue() {
     try {
@@ -9,7 +9,7 @@ async function receiveQueue() {
         const channel = await connection.createChannel();
         const queueName = process.env.QUEUE_NAME;
         await channel.assertQueue(queueName, {
-            durable: false,
+            durable: true,
         });
         await channel.consume(
             queueName,
